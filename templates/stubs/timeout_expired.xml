@@ -1,0 +1,1 @@
+<ServiceFaultList><ServiceFault><domain>EIF</domain><faultCategory>FunctionalException</faultCategory><faultType>ERROR</faultType><faultCode>EIF003</faultCode><faultMessage>Service is down</faultMessage><faultReason>com.estar.dss.commons.exception.EIFServiceException</faultReason></ServiceFault></ServiceFaultList>

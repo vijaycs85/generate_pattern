@@ -1,0 +1,4 @@
+module_name,class_name,service_name,service_description
+payment_service,CancelAuthorisation,cancel_authorisation,Service to autherized card details
+payment_service,IssueRefund,issue_refund,Service to issue refund
+train_service,GetTrainSchedule,get_train_schedule,Service to get train schedule
