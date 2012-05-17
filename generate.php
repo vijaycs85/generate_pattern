@@ -15,10 +15,10 @@ function generateService($service_details) {
   @extract($service_details);
   $output_dir = realpath('./outputs');
   $tpl_dir = realpath('./templates');
-  $module_path = $output_dir . DIRECTORY_SEPARATOR . $module_name;
-  $service_path = $module_path . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . $service_name;
-  $stub_path = $module_path . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . $service_name;
-  $test_path = $module_path . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . $service_name;
+  $module_path = $output_dir . '/' . $module_name;
+  $service_path = $module_path . '/' . 'services' . '/' . $service_name;
+  $stub_path = $module_path . '/' . 'stubs' . '/' . $service_name;
+  $test_path = $module_path . '/' . 'tests' . '/' . $service_name;
   
   // create module folder, if doesn't exist
   if (!is_dir($module_path)) {
@@ -37,12 +37,12 @@ function generateService($service_details) {
   if (!is_dir($test_path)) {
     mkdir($test_path, 0777, TRUE);
   }
-  $files['messagequeue'] = $module_path . DIRECTORY_SEPARATOR . $service_name . '.' . $module_name . '.messagequeue_default_service.inc';
-  $files['service'] = $service_path . DIRECTORY_SEPARATOR . $module_name . '.' . $service_name . '.inc';
-  $files['stub'] = $stub_path . DIRECTORY_SEPARATOR . 'default.xml';
-  $files['test'] = $test_path . DIRECTORY_SEPARATOR . $module_name . '.' . $service_name . '.test';
+  $files['messagequeue'] = $module_path . '/' . $service_name . '.' . $module_name . '.messagequeue_default_service.inc';
+  $files['service'] = $service_path . '/' . $module_name . '.' . $service_name . '.inc';
+  $files['stub'] = $stub_path . '/' . 'default.xml';
+  $files['test'] = $test_path . '/' . $module_name . '.' . $service_name . '.test';
   foreach ($files as $tpl => $file) {
-    $tpl_content = file_get_contents($tpl_dir . DIRECTORY_SEPARATOR . $tpl. '.tpl');
+    $tpl_content = file_get_contents($tpl_dir . '/' . $tpl. '.tpl');
     $fp = fopen($file, 'w+');
     $tpl_content = str_replace('{class_name}', $class_name, $tpl_content);
     $tpl_content = str_replace('{service_name}', $service_name, $tpl_content);
@@ -52,17 +52,18 @@ function generateService($service_details) {
     fclose($fp);
   }
   // Copy stub response for excpetions.
-  $stub_src = $tpl_dir . DIRECTORY_SEPARATOR . 'stubs';
-  $stub_dst = $stub_path . DIRECTORY_SEPARATOR;
+  $stub_src = $tpl_dir . '/' . 'stubs';
+  $stub_dst = $stub_path . '/';
   if (is_dir($stub_src)) {
     if ($dh = opendir($stub_src)) {
         while (($file = readdir($dh)) !== false) {
           if($file != '.' && $file != '..') {
-              @copy($stub_src. DIRECTORY_SEPARATOR . $file, $stub_dst.$file);
+              @copy($stub_src. '/' . $file, $stub_dst.$file);
           }
         }
         closedir($dh);
     }
   }
 }
-?>
+
+
